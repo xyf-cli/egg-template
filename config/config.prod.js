@@ -24,7 +24,7 @@ module.exports = appInfo => {
     dialect: 'mysql',
     host: '127.0.0.1',
     port: 3306,
-    database: 'egg_admin_dev',
+    database: 'egg_admin_prod',
     username: 'root',
     password: '88888888',
     timezone: '+08:00',

@@ -29,7 +29,7 @@ module.exports = appInfo => {
     dialect: 'mysql',
     host: '127.0.0.1',
     port: 3306,
-    database: 'egg_admin_prod',
+    database: 'egg_admin_dev',
     username: 'root',
     password: '88888888',
     define: {
