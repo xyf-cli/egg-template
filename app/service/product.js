@@ -21,31 +21,11 @@ class ProductService extends Service {
       delete where.create_user_id;
     }
     const { rows, count } = await ctx.model.Product.findAndCountAll({
-      order: [[ 'updated_at', 'DESC' ]],
+      order: [[ 'updatedAt', 'DESC' ]],
       limit: Number(pageSize), // 每页多少条
       offset: Number(pageSize) * (Number(currentPage) - 1), // 跳过多少条
       where,
       distinct: true,
-      include: [{
-        model: ctx.model.Category,
-        attributes: [ 'cate_name' ],
-      }, {
-        as: 'product_preview_files',
-        model: ctx.model.ProductFile,
-        attributes: [ 'file_name', 'file_path', 'id' ],
-        where: {
-          file_mark: 0,
-        },
-        required: false,
-      }, {
-        as: 'product_detail_files',
-        model: ctx.model.ProductFile,
-        attributes: [ 'file_name', 'file_path', 'id' ],
-        where: {
-          file_mark: 1,
-        },
-        required: false,
-      }],
     });
     rows.forEach(item => {
       item.setDataValue('cate_name', item.category.cate_name);
