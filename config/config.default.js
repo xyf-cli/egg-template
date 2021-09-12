@@ -18,6 +18,12 @@ module.exports = appInfo => {
     requestPath: '/public/uploads/', // 上传文件访问路径
   };
 
+  config.qiniu = {
+    baseUrl: 'http://qzbr39hkv.hn-bkt.clouddn.com',
+    accessKey: 'MXiM2d92FhVUPV0a5NYdpf_gH2y72wdaGxRiDxxn',
+    secretKey: '2-YP7l8QM1OyFD-5qia2P-8pRofI3oe0dfzGbQCP',
+  };
+
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1599843766917_4844';
 

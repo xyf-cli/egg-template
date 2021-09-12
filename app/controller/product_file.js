@@ -14,10 +14,10 @@ class FileController extends Controller {
     const { ctx, config } = this;
     // 读取表单提交的文件流
     const stream = await ctx.getFileStream();
-    const result = await ctx.service.productFile.handleStream(stream);
+    const result = await ctx.service.productFile.qiniuHandleStream(stream);
     // return result;
-    const fileInfo = await ctx.service.productFile.uploadAction(result);
-    ctx.success('添加成功', fileInfo);
+    // const fileInfo = await ctx.service.productFile.uploadAction(result);
+    ctx.success('添加成功', result);
   }
   // 多文件上传
   async multiUpload() {
@@ -44,9 +44,9 @@ class FileController extends Controller {
         console.log('encoding: ' + part.encoding);
         console.log('mime: ' + part.mime);
         // 文件处理，上传到云存储等等
-        const result = await ctx.service.productFile.handleStream(part);
-        const fileInfo = await ctx.service.productFile.uploadAction(result);
-        ctx.success('添加成功', fileInfo);
+        const result = await ctx.service.productFile.qiniuHandleStream(part);
+        // const fileInfo = await ctx.service.productFile.uploadAction(result);
+        ctx.success('添加成功', result);
       }
     }
   }
