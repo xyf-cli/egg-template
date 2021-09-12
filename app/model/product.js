@@ -35,6 +35,16 @@ module.exports = app => {
       allowNull: true,
       comment: '商品描述',
     },
+    prod_file_urls: {
+      type: STRING(1024),
+      allowNull: true,
+      comment: '商品图片',
+    },
+    prod_detail_file_urls: {
+      type: STRING(1024),
+      allowNull: true,
+      comment: '商品详情图片',
+    },
     create_user_id: {
       type: INTEGER,
       allowNull: false,

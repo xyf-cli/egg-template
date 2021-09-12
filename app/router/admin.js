@@ -36,9 +36,9 @@ module.exports = app => {
   router.put('/product/:id', jwt, controller.product.update);
   router.get('/product/:id', jwt, controller.product.show);
   router.delete('/product/:id', jwt, controller.product.destroy);
-  // // router.post('/productFile', jwt, controller.productFile.upload);
-  // router.post('/productFile', jwt, controller.productFile.multiUpload);
-  // router.get('/productFile', jwt, controller.productFile.index);
-  // router.delete('/productFile/:id', jwt, controller.productFile.destroy);
-  // router.resources('category', '/category', controller.category);
+  // router.post('/productFile', jwt, controller.productFile.upload);
+  router.post('/productFile', jwt, controller.productFile.multiUpload);
+  router.get('/productFile', jwt, controller.productFile.index);
+  router.delete('/productFile/:id', jwt, controller.productFile.destroy);
+  router.resources('category', '/category', controller.category);
 };

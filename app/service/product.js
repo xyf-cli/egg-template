@@ -27,9 +27,9 @@ class ProductService extends Service {
       where,
       distinct: true,
     });
-    rows.forEach(item => {
-      item.setDataValue('cate_name', item.category.cate_name);
-    });
+    // rows.forEach(item => {
+    //   item.setDataValue('cate_name', item.category.cate_name);
+    // });
     return {
       results: rows,
       total: count,
@@ -39,8 +39,7 @@ class ProductService extends Service {
   async createAction(params) {
     const { ctx } = this;
     const userId = ctx.getUserId();
-    const { prod_name, cate_id, prod_price, prod_desc, prod_file_list } = params;
-    const t = await ctx.model.transaction();
+    const { prod_name, cate_id, prod_price, prod_desc, prod_file_urls, prod_detail_file_urls } = params;
     const hasProduct = await ctx.model.Product.findOne({
       where: {
         prod_name,
@@ -50,84 +49,41 @@ class ProductService extends Service {
     if (hasProduct) {
       throw { status: 200, message: '产品已存在' };
     }
-    try {
-      const product = new ctx.model.Product();
-      product.prod_name = prod_name;
-      product.prod_price = prod_price;
-      product.cate_id = cate_id;
-      product.prod_desc = prod_desc;
-      product.create_user_id = userId;
-      const prod = await product.save();
-      prod_file_list.forEach(async item => {
-        await ctx.model.ProductFile.update(
-          {
-            prod_id: prod.id,
-          },
-          {
-            where: {
-              id: item.id,
-            },
-          }
-        );
-      });
-      await t.commit();
-      return '添加成功';
-    } catch (e) {
-      await t.rollback();
-      throw e;
-    }
+    const product = new ctx.model.Product();
+    product.prod_name = prod_name;
+    product.prod_price = prod_price;
+    product.cate_id = cate_id;
+    product.prod_desc = prod_desc;
+    product.prod_file_urls = prod_file_urls;
+    product.prod_detail_file_urls = prod_detail_file_urls;
+    product.create_user_id = userId;
+    await product.save();
+    return '添加成功';
   }
   // 更新商品信息
   async updateAction(params, request) {
     const { ctx } = this;
     const userId = ctx.getUserId();
     const { id } = params;
-    const { prod_name, cate_id, prod_price, prod_desc, prod_file_list } = request;
-    const t = await ctx.model.transaction();
-    try {
-      const product = await ctx.model.Product.update(
-        {
-          prod_name,
-          cate_id,
-          prod_price,
-          prod_desc,
+    const { prod_name, cate_id, prod_price, prod_desc, prod_file_urls, prod_detail_file_urls } = request;
+    await ctx.model.Product.update(
+      {
+        prod_name,
+        cate_id,
+        prod_price,
+        prod_desc,
+        prod_file_urls,
+        prod_detail_file_urls,
+      },
+      {
+        where: {
+          id,
+          create_user_id: userId,
         },
-        {
-          where: {
-            id,
-            create_user_id: userId,
-          },
-        }
-      );
-      await ctx.model.ProductFile.update(
-        {
-          prod_id: null,
-        },
-        {
-          where: {
-            prod_id: id,
-          },
-        }
-      );
-      const fileIds = prod_file_list.map(item => {
-        return item.id;
-      });
-      await ctx.model.ProductFile.update(
-        {
-          prod_id: id,
-        },
-        {
-          where: {
-            id: fileIds,
-          },
-        }
-      );
-      await t.commit();
-      return '更新成功';
-    } catch (e) {
-      await t.rollback();
-      throw e;
-    }
+      }
+    );
+    return '更新成功';
+
   }
   // 查询商品详情
   async showAction(params) {
@@ -137,23 +93,6 @@ class ProductService extends Service {
       where: {
         id,
       },
-      include: [{
-        as: 'product_preview_files',
-        model: ctx.model.ProductFile,
-        attributes: [ 'file_name', 'file_path', 'id' ],
-        where: {
-          file_mark: 0,
-        },
-        required: false,
-      }, {
-        as: 'product_detail_files',
-        model: ctx.model.ProductFile,
-        attributes: [ 'file_name', 'file_path', 'id' ],
-        where: {
-          file_mark: 1,
-        },
-        required: false,
-      }],
     });
     return product;
   }

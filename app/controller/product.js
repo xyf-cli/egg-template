@@ -24,7 +24,8 @@ class ProductController extends Controller {
       prod_price: { type: 'number', min: 0, max: 99999 },
       prod_desc: { type: 'string', required: false },
       cate_id: { type: 'number', required: true },
-      prod_file_list: { type: 'array', min: 1, max: 5 },
+      prod_file_urls: { type: 'string', required: false },
+      prod_detail_file_urls: { type: 'string', required: false },
     };
     ctx.validate(rules);
     const result = await ctx.service.product.createAction(ctx.request.body);
@@ -38,7 +39,8 @@ class ProductController extends Controller {
       prod_price: { type: 'number', min: 0, max: 99999 },
       prod_desc: { type: 'string', required: false },
       cate_id: { type: 'number', required: true },
-      prod_file_list: { type: 'array', min: 1, max: 5 },
+      prod_file_urls: { type: 'string', required: false },
+      prod_detail_file_urls: { type: 'string', required: false },
     };
     ctx.validate(rules);
     const result = await ctx.service.product.updateAction(ctx.params, ctx.request.body);

@@ -1,3 +1,4 @@
+'use strict';
 const Service = require('egg').Service;
 
 class CategoryService extends Service {
@@ -7,17 +8,17 @@ class CategoryService extends Service {
     const Op = app.Sequelize.Op;
     const userId = ctx.getUserId();
     const name = params.name || '';
-    let pageSize = Number(params.pageSize) || 10;
-    let currentPage = Number(params.currentPage) || 1;
+    const pageSize = Number(params.pageSize) || 10;
+    const currentPage = Number(params.currentPage) || 1;
     const { count, rows } = await ctx.model.Category.findAndCountAll({
-      order: [['updated_at', 'DESC']],
+      order: [[ 'updatedAt', 'DESC' ]],
       limit: pageSize, // 每页多少条
       offset: pageSize * (currentPage - 1), // 跳过多少条
       where: {
         cate_name: {
           [Op.like]: '%' + name + '%',
         },
-        create_user_id: userId
+        create_user_id: userId,
       },
     });
     return {
@@ -33,11 +34,11 @@ class CategoryService extends Service {
     const hasCategory = await ctx.model.Category.findOne({
       where: {
         cate_name,
-        create_user_id: userId
-      }
-    })
+        create_user_id: userId,
+      },
+    });
     if (hasCategory) {
-      throw { status: 200, message: '分类已存在' }
+      throw { status: 200, message: '分类已存在' };
     }
     const category = new ctx.model.Category();
     category.cate_name = cate_name;
@@ -56,7 +57,7 @@ class CategoryService extends Service {
       {
         where: {
           id,
-          create_user_id: userId
+          create_user_id: userId,
         },
       }
     );
@@ -70,7 +71,7 @@ class CategoryService extends Service {
     const category = await ctx.model.Category.findOne({
       where: {
         id,
-        create_user_id: userId
+        create_user_id: userId,
       },
     });
     return category;
@@ -83,7 +84,7 @@ class CategoryService extends Service {
     const hasCategory = await ctx.model.Category.findOne({
       where: {
         id,
-        create_user_id: userId
+        create_user_id: userId,
       },
     });
     if (!hasCategory) {
@@ -91,16 +92,16 @@ class CategoryService extends Service {
     }
     const linkProduct = await ctx.model.Product.findAndCountAll({
       where: {
-        cate_id: id
-      }
-    })
+        cate_id: id,
+      },
+    });
     if (linkProduct.count) {
       throw { status: 200, message: `该分类下有${linkProduct.count}个关联的商品` };
     }
     await ctx.model.Category.destroy({
       where: {
         id,
-        create_user_id: userId
+        create_user_id: userId,
       },
     });
     return '删除成功';
