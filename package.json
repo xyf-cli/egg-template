@@ -32,9 +32,9 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --port=7001 --daemon --title=my-egg-admin --ignore-stderr",
+    "start": "egg-scripts start --port=7002 --daemon --title=my-egg-admin --ignore-stderr",
     "stop": "egg-scripts stop --title=my-egg-admin",
-    "test:start":"egg-scripts start --port=7002 --env=dev --daemon --title=my-egg-admin-test --ignore-stderr",
+    "test:start":"egg-scripts start --port=7001 --env=dev --daemon --title=my-egg-admin-test --ignore-stderr",
     "test:stop": "egg-scripts stop --title=my-egg-admin-test",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
