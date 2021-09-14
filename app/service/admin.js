@@ -29,11 +29,11 @@ class UserService extends Service {
       },
     });
     if (!admin) {
-      throw { status: 200, message: '账号不存在' };
+      throw { status: 401, message: '账号不存在' };
     }
     const correct = bcrypt.compareSync(password, admin.password);
     if (!correct) {
-      throw { status: 200, message: '账号或密码不正确' };
+      throw { status: 401, message: '账号或密码不正确' };
     }
     return admin;
   }
@@ -48,7 +48,7 @@ class UserService extends Service {
       },
     });
     if (hasAdmin) {
-      throw { status: 200, message: '账号已存在' };
+      throw { status: 401, message: '账号已存在' };
     }
     const admin = new ctx.model.Admin();
     admin.email = email;
