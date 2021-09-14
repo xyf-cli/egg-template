@@ -24,6 +24,7 @@ class UserService extends Service {
     const { ctx } = this;
     const { email, password } = params;
     const admin = await ctx.model.Admin.findOne({
+      raw: true,
       where: {
         email,
       },
