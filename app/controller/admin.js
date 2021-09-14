@@ -31,7 +31,7 @@ class AdminController extends Controller {
   async register() {
     const { ctx } = this;
     const rules = {
-      nickname: { type: 'string', min: 3, max: 20 },
+      nickname: { type: 'string', min: 2, max: 20 },
       email: { type: 'email' },
       password: { type: 'password' },
     };
