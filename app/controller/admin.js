@@ -21,11 +21,12 @@ class AdminController extends Controller {
       },
       ctx.app.config.jwt.secret
     );
+    result.token = token;
+    delete result.password;
     ctx.body = {
       success: true,
       msg: '查询成功',
       data: result,
-      token,
     };
   }
   async register() {
