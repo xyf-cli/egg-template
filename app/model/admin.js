@@ -35,7 +35,7 @@ module.exports = app => {
     },
   });
 
-  // Admin.sync({ alter: true });
+  Admin.sync({ alter: true });
 
   return Admin;
 };

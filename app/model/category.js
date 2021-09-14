@@ -23,7 +23,7 @@ module.exports = app => {
   });
 
 
-  // Category.sync({ alter: true });
+  Category.sync({ alter: true });
 
 
   return Category;

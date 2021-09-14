@@ -52,7 +52,7 @@ module.exports = app => {
     },
   });
 
-  // Product.sync({ alter: true });
+  Product.sync({ alter: true });
 
   return Product;
 };
