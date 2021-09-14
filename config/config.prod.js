@@ -27,16 +27,8 @@ module.exports = appInfo => {
     database: 'egg_admin_prod',
     username: 'root',
     password: '88888888',
-    timezone: '+08:00',
-    dialectOptions: {
-      useUTC: false, // for reading from database
-      dateStrings: true,
-      typeCast(field, next) { // for reading from database
-        if (field.type === 'DATETIME') {
-          return field.string();
-        }
-        return next();
-      },
+    define: {
+      freezeTableName: true,
     },
   };
 
