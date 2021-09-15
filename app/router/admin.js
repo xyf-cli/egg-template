@@ -32,7 +32,7 @@ module.exports = app => {
   router.post('/login', controller.admin.login);
   router.post('/register', controller.admin.register);
   router.get('/product/list', jwt, controller.product.index);
-  router.post('/product/add', jwt, controller.product.create);
+  router.post('/product/create', jwt, controller.product.create);
   router.put('/product/:id', jwt, controller.product.update);
   router.get('/product/:id', jwt, controller.product.show);
   router.delete('/product/:id', jwt, controller.product.destroy);
