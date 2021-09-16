@@ -41,4 +41,6 @@ module.exports = app => {
   router.get('/upload', jwt, controller.productFile.index);
   router.delete('/upload/:id', jwt, controller.productFile.destroy);
   router.resources('category', '/category', controller.category);
+
+  router.get('/mp/product/list', controller.product.index);
 };
