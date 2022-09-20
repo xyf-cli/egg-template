@@ -34,7 +34,7 @@
   "scripts": {
     "start": "egg-scripts start --port=7002 --daemon --title=my-egg-admin --ignore-stderr",
     "stop": "egg-scripts stop --title=my-egg-admin",
-    "start:test":"egg-scripts start --port=7001 --env=dev --daemon --title=my-egg-admin-test --ignore-stderr",
+    "start:test": "egg-scripts start --port=7001 --env=dev --daemon --title=my-egg-admin-test --ignore-stderr",
     "stop:test": "egg-scripts stop --title=my-egg-admin-test",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",

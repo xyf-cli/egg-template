@@ -15,7 +15,7 @@ class FileService extends Service {
     const secretKey = config.qiniu.secretKey;
     const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
     const options = {
-      scope: 'xyf-wine',
+      scope: 'geek32',
     };
     const putPolicy = new qiniu.rs.PutPolicy(options);
     const uploadToken = putPolicy.uploadToken(mac);
@@ -40,7 +40,7 @@ class FileService extends Service {
     const uploadToken = this.qiniuToken();
     const qConfig = new qiniu.conf.Config();
     // 空间对应的机房
-    qConfig.zone = qiniu.zone.Zone_z2; // 华南机房
+    qConfig.zone = qiniu.zone.z1; // 华南机房
     // 是否使用https域名
     qConfig.useHttpsDomain = false;
     // 上传是否使用cdn加速
